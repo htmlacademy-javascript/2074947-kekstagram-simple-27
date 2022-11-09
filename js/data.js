@@ -26,6 +26,6 @@ const createData = () => ({
   comments:  getRandomIntInclusive(0, 200)
 });
 
-const photoArray = () => Array.from({length: 25}, createData);
+const createPhotoArray = () => Array.from({length: 25}, createData);
 
-export {photoArray};
+export {createPhotoArray};
