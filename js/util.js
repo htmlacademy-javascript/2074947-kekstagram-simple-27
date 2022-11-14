@@ -14,4 +14,6 @@ function getRandomIntInclusive(min, max) {
 }
 getRandomIntInclusive(1, 100);
 
-export {getRandomIntInclusive};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomIntInclusive, isEscapeKey};
