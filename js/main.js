@@ -1,6 +1,7 @@
 import './picture.js';
 import { createPhotoArray } from './data.js';
 import { createPhotoElement } from './picture.js';
+import './form.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const similarPictures = createPhotoArray();
