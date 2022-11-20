@@ -27,7 +27,7 @@ function closeFormEditing () {
   document.removeEventListener('keydown', onFormEscKeydown);
 }
 
-imageFormOpen.addEventListener('click', () => {
+imageFormOpen.addEventListener('change', () => {
   openFormEditing();
 });
 
