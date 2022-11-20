@@ -1,4 +1,5 @@
 import './picture.js';
+import './picture-editor.js';
 import { createPhotoArray } from './data.js';
 import { createPhotoElement } from './picture.js';
 import './form.js';
