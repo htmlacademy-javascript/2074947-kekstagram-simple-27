@@ -1,6 +1,6 @@
 // Функция для проверки максимальной длины строки.
 
-function checkLength(checkString , maxLength) {
+function checkLength(checkString, maxLength) {
   return checkString.length < maxLength;
 }
 checkLength(1, 19);
