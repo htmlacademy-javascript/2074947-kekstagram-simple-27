@@ -17,11 +17,11 @@ function setScale(scale) {
 }
 
 scaleSmallerButton.addEventListener('click', () => {
-  setScale(parseInt(scaleValueButton.value) - 25);
+  setScale(parseInt(scaleValueButton.value, 10) - 25);
 });
 
 sclaeBiggerButton.addEventListener('click', () => {
-  setScale(parseInt(scaleValueButton.value) + 25);
+  setScale(parseInt(scaleValueButton.value, 10) + 25);
 });
 
 function setEffect() {
