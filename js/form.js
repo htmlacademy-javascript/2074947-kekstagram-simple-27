@@ -1,12 +1,12 @@
 import { isEscapeKey} from './util.js';
 import {createSuccesMessage, createErrorMessage} from './message.js';
+import { makeRequest } from './api.js';
 
 const imageFormEditing = document.querySelector('.img-upload__overlay');
 const imageFormOpen = document.querySelector('.img-upload__input');
 const imageFormClose = imageFormEditing.querySelector('.img-upload__cancel');
 const modalOpen = document.querySelector('body');
 const imageForm = document.querySelector('.img-upload__form');
-const submitButton = imageForm.querySelector('.img-upload__submit');
 
 const onFormEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -38,17 +38,6 @@ imageFormClose.addEventListener('click', () => {
   closeFormEditing();
 });
 
-const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Секундочку...';
-};
-
-const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'ОПУБЛИКОВАТЬ';
-};
-
-
 // Валидация Pristine
 const pristine = new Pristine(imageForm, {
   classTo: 'img-upload__text',
@@ -59,28 +48,19 @@ const pristine = new Pristine(imageForm, {
 const setFormSubmit = (onSuccess) => {
   imageForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
+    const onSuccessCb = () => {
+      onSuccess();
+      createSuccesMessage();
+    };
+
+    const onFailCb = (err) => {
+      createErrorMessage(err);
+    };
 
     const isValid = pristine.validate();
     if (isValid) {
       const formData = new FormData(evt.target);
-      fetch(
-        'https://27.javascript.pages.academy/kekstagram-simple',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      )
-        .then((response) => {
-          if(response.ok) {
-            onSuccess();
-            createSuccesMessage();
-          }else {
-            throw new Error(createErrorMessage);
-          }
-        })
-        .catch((err) => {
-          createErrorMessage(err);
-        });
+      makeRequest({onSuccess: onSuccessCb, onFail: onFailCb, method: 'POST', body: formData});
     }
   });
 };

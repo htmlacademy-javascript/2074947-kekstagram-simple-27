@@ -1,9 +1,17 @@
-const getData = (onSuccess) => {
-  fetch('https://27.javascript.pages.academy/kekstagram-simple/data')
-    .then((response) => response.json())
-    .then((pictures) => {
-      onSuccess(pictures);
-    });
+const config = {
+  baseUrl: 'https://27.javascript.pages.academy/kekstagram-simple',
 };
 
-export {getData};
+const makeRequest = ({endpoint = '', onSuccess, onFail, method = 'GET', body = null}) => {
+  fetch(`${config.baseUrl}/${endpoint}`, {
+    method,
+    body: body
+  })
+    .then((response) => response.ok ? response.json() : response.json().then((errorData) => Promise.reject(errorData)))
+    .then((data) => {
+      onSuccess(data);
+    })
+    .catch(onFail);
+};
+
+export {makeRequest};
