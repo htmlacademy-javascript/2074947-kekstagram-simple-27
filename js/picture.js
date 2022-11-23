@@ -16,3 +16,4 @@ export function createPhotoElement(data){
 
   return pictureElement;
 }
+
