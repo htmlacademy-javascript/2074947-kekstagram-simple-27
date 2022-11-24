@@ -5,6 +5,15 @@ const successMessageTemplate = document.querySelector('#success')
   .content
   .querySelector('.success');
 
+const openMessage = (container, messageElement) => {
+  container.append(messageElement);
+  document.addEventListener('keydown', onMessageEscKeydown);
+};
+
+const closeMessage = (messageElement) => {
+  messageElement.remove();
+  document.removeEventListener('keydown', onMessageEscKeydown);
+};
 
 function onMessageEscKeydown (evt) {
   if (isEscapeKey(evt)) {
@@ -16,30 +25,20 @@ function onMessageEscKeydown (evt) {
   }
 }
 
-function openMessage(container, messageElement) {
-  container.append(messageElement);
-  document.addEventListener('keydown', onMessageEscKeydown);
-}
-
-function closeMessage(messageElement) {
-  messageElement.remove();
-  document.removeEventListener('keydown', onMessageEscKeydown);
-}
-
-function createSuccesMessage() {
+const createSuccesMessage = () => {
   const succesMessageElement = successMessageTemplate.cloneNode(true);
   openMessage(pageContainer, succesMessageElement);
 
   succesMessageElement.addEventListener('click', () => {
     closeMessage(succesMessageElement);
   });
-}
+};
 
 const errorMessageTemplate = document.querySelector('#error')
   .content
   .querySelector('.error');
 
-function createErrorMessage(err) {
+const createErrorMessage = (err) => {
   const errorMessageElement = errorMessageTemplate.cloneNode(true);
   const errorMessageElementTitle = errorMessageElement.querySelector('.error__title');
   errorMessageElementTitle.textContent = err?.message || 'Ошибка загрузки файла';
@@ -47,7 +46,7 @@ function createErrorMessage(err) {
   errorMessageElement.addEventListener('click', () => {
     closeMessage(errorMessageElement);
   });
-}
+};
 
 
 export { createSuccesMessage, createErrorMessage};

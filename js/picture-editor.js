@@ -9,12 +9,12 @@ const effectSlider = uploadFormElement.querySelector('.effect-level__slider');
 const effectsList = uploadFormElement.querySelector('.effects__list');
 let slider;
 
-function setScale(scale) {
+const setScale = (scale) => {
   if (scale > 100) {scale = 100;}
   if (scale < 25) {scale = 25;}
   scaleValueButton.value = `${scale}%`;
   imagePreviewContainer.style.transform = `scale(${scale / 100})`;
-}
+};
 
 scaleSmallerButton.addEventListener('click', () => {
   setScale(parseInt(scaleValueButton.value, 10) - 25);
@@ -24,7 +24,7 @@ sclaeBiggerButton.addEventListener('click', () => {
   setScale(parseInt(scaleValueButton.value, 10) + 25);
 });
 
-function setEffect() {
+const setEffect = () => {
   const effect = uploadFormElement.querySelector('.effects__radio:checked').value;
   const value = effectRangeValue.value;
   let filter = 'none';
@@ -50,9 +50,9 @@ function setEffect() {
   }
 
   imagePreviewElement.style.filter = filter;
-}
+};
 
-function intialSlider() {
+const intialSlider = () => {
   noUiSlider.create(effectSlider, {
     range: {
       min: 0,
@@ -69,8 +69,9 @@ function intialSlider() {
   });
 
   return effectSlider;
-}
-function onChangeEffect (evt) {
+};
+
+const onChangeEffect = (evt) => {
   if (!slider) {slider = intialSlider();}
   if(evt.target.value === 'marvin'){
     slider.noUiSlider.updateOptions({
@@ -88,6 +89,6 @@ function onChangeEffect (evt) {
   }
 
   setEffect();
-}
+};
 
 effectsList.addEventListener('change', onChangeEffect);
