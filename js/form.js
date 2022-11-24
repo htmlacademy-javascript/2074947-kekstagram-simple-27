@@ -8,25 +8,26 @@ const imageFormClose = imageFormEditing.querySelector('.img-upload__cancel');
 const modalOpen = document.querySelector('body');
 const imageForm = document.querySelector('.img-upload__form');
 
-const onFormEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeFormEditing();
-  }
-};
 
-function openFormEditing() {
+const openFormEditing = () => {
   imageFormEditing.classList.remove('hidden');
   modalOpen.classList.add('modal-open');
 
   document.addEventListener('keydown', onFormEscKeydown);
-}
+};
 
-function closeFormEditing() {
+const closeFormEditing = () => {
   imageFormEditing.classList.add('hidden');
   modalOpen.classList.remove('modal-open');
   imageForm.reset();
   document.removeEventListener('keydown', onFormEscKeydown);
+};
+
+function onFormEscKeydown (evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeFormEditing();
+  }
 }
 
 imageFormOpen.addEventListener('change', () => {
